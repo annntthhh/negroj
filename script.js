@@ -1,4 +1,4 @@
-const fechaInicio = new Date(2023, 03, 30); // AJUSTA TU FECHA AQUÍ
+const fechaInicio = new Date(2023, 2, 30); // AJUSTA TU FECHA AQUÍ
 
 // 1. CLIMA DINÁMICO
 const horas = new Date().getHours();
