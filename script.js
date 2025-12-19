@@ -3,18 +3,12 @@ const message = document.getElementById('hiddenMessage');
 const music = document.getElementById('backgroundMusic');
 
 button.addEventListener('click', function() {
-    // 1. Mostrar mensaje
+    // Esto muestra el mensaje
     message.style.display = 'block';
     
-    // 2. Forzar música
-    music.volume = 1.0; // Volumen al máximo
-    music.play().catch(error => {
-        console.log("Error crítico de audio: ", error);
-        // Intento secundario
-        music.load();
-        music.play();
-    });
+    // Esto arranca la música (el navegador lo permite porque hubo un clic)
+    music.play();
 
-    // 3. Cambiar texto del botón
-    button.textContent = "¡Te amo! ❤️";
+    // Cambia el texto del botón
+    button.textContent = "❤️";
 });
