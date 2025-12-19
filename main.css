@@ -1,17 +1,17 @@
-:root { --x: 50%; --y: 50%; --accent-color: #ff4d6d; }
+:root { --accent-color: #ff4d6d; }
 
-/* --- RESPLANDOR GIGANTE DE FONDO --- */
+/* --- EL SOL GIGANTE DE FONDO (Corregido) --- */
 #sky-element { 
     position: fixed; 
-    right: -100px; 
-    top: -100px;
-    border-radius: 50%; 
-    z-index: 1; 
-    filter: blur(80px); 
-    transition: all 3s ease; 
+    top: -100px; 
+    right: -100px;
     width: 500px; 
-    height: 500px; 
-    opacity: 0.5;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    transition: all 2s ease;
+    opacity: 0.8;
 }
 body.sunrise #sky-element { background: radial-gradient(circle, #ffeb3b, #ff9800); }
 body.day #sky-element { background: radial-gradient(circle, #fffdf7, #ffdb6e); }
@@ -20,45 +20,48 @@ body.night #sky-element { background: radial-gradient(circle, #f1f5f9, #334155);
 
 body { 
     margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; 
-    font-family: 'Segoe UI', Arial, sans-serif; overflow: hidden; background: #87CEEB;
+    font-family: 'Inter', 'Segoe UI', sans-serif; overflow: hidden; background: #87CEEB;
 }
 
 .glass-card { 
-    backdrop-filter: blur(25px); border-radius: 35px; padding: 40px; text-align: center; 
-    width: 85%; max-width: 380px; z-index: 10; background: rgba(255, 255, 255, 0.15); 
-    border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-direction: column; gap: 20px; 
+    backdrop-filter: blur(20px); border-radius: 30px; padding: 40px; text-align: center; 
+    width: 85%; max-width: 380px; z-index: 10; background: rgba(255, 255, 255, 0.2); 
+    border: 1px solid rgba(255, 255, 255, 0.3); display: flex; flex-direction: column; gap: 20px; 
 }
 
-/* Sol central pequeño */
-.icon { font-size: 2.5rem; margin-bottom: 0px; }
+.icon { font-size: 2.5rem; margin: 0; }
 
-/* Reloj con números balanceados */
+/* --- RELOJ: NÚMEROS LIMPIOS Y GRANDES --- */
 #clock { 
-    display: flex; justify-content: space-around; background: rgba(255,255,255,0.1); 
+    display: flex; justify-content: space-around; background: rgba(0,0,0,0.08); 
     padding: 20px 10px; border-radius: 20px; 
 }
-.time-segment span { font-size: 30px; font-weight: 800; display: block; line-height: 1; }
-.time-segment label { font-size: 11px; font-weight: 600; text-transform: uppercase; opacity: 0.7; }
+.time-segment span { 
+    font-size: 38px; /* Tamaño grande */
+    font-weight: 900; 
+    font-family: 'Courier New', monospace; /* Para que no bailen los números */
+    display: block; 
+}
+.time-segment label { font-size: 12px; font-weight: bold; text-transform: uppercase; opacity: 0.7; }
 
-.question { font-size: 2rem; font-weight: 700; color: var(--accent-color); margin: 10px 0; }
+.question { font-size: 2.2rem; font-weight: 800; color: var(--accent-color); margin: 10px 0; }
 
-.button-group { display: flex; justify-content: center; gap: 25px; position: relative; height: 60px; }
+/* --- BOTONES DEL MISMO COLOR --- */
+.button-group { display: flex; justify-content: center; gap: 20px; height: 60px; align-items: center; }
 .dynamic-btn { 
-    padding: 12px 40px; border-radius: 50px; border: none; font-weight: bold; 
-    cursor: pointer; background: var(--accent-color); color: white; font-size: 16px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    padding: 12px 35px; border-radius: 50px; border: none; font-weight: 900; 
+    cursor: pointer; background: var(--accent-color); color: white; font-size: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: background 1s ease;
 }
 
-/* El botón No que corre */
-#noBtn.escaped { position: fixed; transition: all 0.2s ease-out; z-index: 1000; }
+/* --- EL "NO" QUE HUYE (Fisicamente) --- */
+#noBtn.escaped { position: fixed; z-index: 9999; }
 
 .lo-sabia { 
-    position: fixed; z-index: 1001; font-weight: 900; color: white; 
-    background: var(--accent-color); padding: 6px 14px; border-radius: 10px; 
-    pointer-events: none; opacity: 0; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: fixed; z-index: 10000; font-weight: 900; color: white; 
+    background: #333; padding: 8px 15px; border-radius: 10px; opacity: 0; pointer-events: none;
 }
-.lo-sabia.show { animation: pop 0.8s forwards; }
-@keyframes pop { 0%{opacity:0; transform:scale(0.5) translateY(0);} 50%{opacity:1; transform:scale(1.1) translateY(-20px);} 100%{opacity:0; transform:scale(1) translateY(-40px);} }
+.lo-sabia.show { animation: popUp 0.8s forwards; }
+@keyframes popUp { 0%{opacity:0; transform:scale(0.8);} 50%{opacity:1; transform:translateY(-30px) scale(1.1);} 100%{opacity:0;} }
 
-.cloud { position: fixed; background: rgba(255,255,255,0.6); border-radius: 100px; filter: blur(15px); animation: move var(--speed) linear infinite; }
-@keyframes move { from { left: -200px; } to { left: 110vw; } }
+.divider { height: 2px; background: var(--accent-color); margin: 15px 0; opacity: 0.5; }
