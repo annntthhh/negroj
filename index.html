@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Mensaje Mágico ✨</title>
+    <title>Para Mi Amor ✨</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div class="cursor-glow" id="glow"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="stars-container"></div>
+    <div id="stars"></div>
     
     <div class="hidden-messages-glow">
         <span class="glow-word word1">Siempre</span>
@@ -20,7 +18,7 @@
     </div>
 
     <div class="container">
-        <div class="glass-card">
+        <div class="glass-card" id="mainCard">
             <div class="icon">🌙</div>
             <h1>Nuestro Tiempo</h1>
             
@@ -51,10 +49,10 @@
                 <p id="typewriter" class="final-text"></p>
                 <div class="sparkle">✨🌙✨</div>
             </div>
-            <div id="particle-burst-container"></div>
         </div>
     </div>
 
+    <div id="particle-burst-container"></div>
     <script src="script.js"></script>
 </body>
 </html>
