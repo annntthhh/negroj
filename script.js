@@ -1,16 +1,35 @@
 // CONFIGURACIÓN: Cambia a tu fecha (Año, Mes-1, Día)
 const fechaInicio = new Date(2023, 11, 1); // Ejemplo: 1 de Dic de 2023
 
-// 1. FARO DE LUZ
+// 1. FARO DE LUZ Y MENSAJES OCULTOS
 const glow = document.getElementById('glow');
+const glowWords = document.querySelectorAll('.glow-word');
+
 const handleMove = (e) => {
-    const x = e.clientX || e.touches[0].clientX;
-    const y = e.clientY || e.touches[0].clientY;
-    glow.style.setProperty('--x', x + 'px');
-    glow.style.setProperty('--y', y + 'px');
+    const clientX = e.clientX || e.touches[0].clientX;
+    const clientY = e.clientY || e.touches[0].clientY;
+    glow.style.setProperty('--x', clientX + 'px');
+    glow.style.setProperty('--y', clientY + 'px');
+
+    // Revisar si el cursor está cerca de alguna palabra oculta
+    glowWords.forEach(word => {
+        const rect = word.getBoundingClientRect();
+        const distance = Math.sqrt(
+            Math.pow(clientX - (rect.left + rect.width / 2), 2) +
+            Math.pow(clientY - (rect.top + rect.height / 2), 2)
+        );
+        if (distance < 100) { // Si está a menos de 100px
+            word.style.textShadow = '0 0 15px rgba(255, 255, 255, 0.8)';
+            word.style.color = 'rgba(255, 255, 255, 0.6)';
+        } else {
+            word.style.textShadow = 'none';
+            word.style.color = 'rgba(255, 255, 255, 0.05)';
+        }
+    });
 };
 window.addEventListener('mousemove', handleMove);
 window.addEventListener('touchmove', handleMove);
+
 
 // 2. CONTADOR
 function actualizarContador() {
@@ -37,7 +56,34 @@ const escapar = () => {
 noBtn.addEventListener('mouseover', escapar);
 noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); escapar(); });
 
-// 4. ESCRITURA MÁGICA
+// 4. EFECTO GALAXIA (PARTÍCULAS)
+const createParticleBurst = (x, y) => {
+    const container = document.getElementById('particle-burst-container');
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.width = particle.style.height = `${Math.random() * 5 + 2}px`; // Tamaño aleatorio
+        
+        // Posición inicial: donde se hizo clic
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+
+        // Dirección aleatoria
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 80 + 20; // Distancia de expansión
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+
+        particle.style.setProperty('--dx', `${dx}px`);
+        particle.style.setProperty('--dy', `${dy}px`);
+        
+        container.appendChild(particle);
+        // Eliminar partícula después de la animación
+        particle.addEventListener('animationend', () => particle.remove());
+    }
+};
+
+// 5. ESCRITURA MÁGICA Y REVELACIÓN FINAL
 const texto = "Cada segundo a tu lado es un regalo del universo. Eres mi estrella más brillante. Te amo infinitamente. ❤️";
 const typewriterElement = document.getElementById('typewriter');
 let i = 0;
@@ -50,7 +96,13 @@ function escribir() {
     }
 }
 
-document.getElementById('yesBtn').addEventListener('click', () => {
+document.getElementById('yesBtn').addEventListener('click', (e) => {
+    // Coordenadas del clic para la explosión de partículas
+    const rect = e.target.getBoundingClientRect();
+    const clickX = rect.left + rect.width / 2;
+    const clickY = rect.top + rect.height / 2;
+    createParticleBurst(clickX, clickY);
+
     document.getElementById('secretContent').style.display = 'block';
     document.getElementById('yesBtn').style.display = 'none';
     noBtn.style.display = 'none';
