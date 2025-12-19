@@ -1,53 +1,59 @@
-// 1. CONFIGURACIÓN: Pon aquí la fecha en que se hicieron novios (Año, Mes-1, Día)
-// Enero es 0, Febrero es 1, etc. Ejemplo: 15 de marzo de 2023 -> (2023, 2, 15)
-const fechaInicio = new Date(2022, 03, 30); 
+// CONFIGURACIÓN: Cambia a tu fecha (Año, Mes-1, Día)
+const fechaInicio = new Date(2023, 11, 1); // Ejemplo: 1 de Dic de 2023
 
-// 2. CONTADOR DE TIEMPO
+// 1. FARO DE LUZ
+const glow = document.getElementById('glow');
+const handleMove = (e) => {
+    const x = e.clientX || e.touches[0].clientX;
+    const y = e.clientY || e.touches[0].clientY;
+    glow.style.setProperty('--x', x + 'px');
+    glow.style.setProperty('--y', y + 'px');
+};
+window.addEventListener('mousemove', handleMove);
+window.addEventListener('touchmove', handleMove);
+
+// 2. CONTADOR
 function actualizarContador() {
-    const ahora = new Date();
-    const diferencia = ahora - fechaInicio;
-
-    const d = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diferencia / (1000 * 60)) % 60);
-
-    document.getElementById('days').innerText = d < 10 ? '0' + d : d;
-    document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
-    document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+    const diferencia = new Date() - fechaInicio;
+    const d = Math.floor(diferencia / 86400000);
+    const h = Math.floor((diferencia / 3600000) % 24);
+    const m = Math.floor((diferencia / 60000) % 60);
+    document.getElementById('days').innerText = d.toString().padStart(2, '0');
+    document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
 }
 setInterval(actualizarContador, 1000);
 actualizarContador();
 
-// 3. BOTÓN QUE ESCAPA (PARA EL "NO")
+// 3. BOTÓN QUE ESCAPA
 const noBtn = document.getElementById('noBtn');
-noBtn.addEventListener('mouseover', () => {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-    
+const escapar = () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.position = 'fixed';
     noBtn.style.left = x + 'px';
     noBtn.style.top = y + 'px';
-    noBtn.style.position = 'fixed';
-});
+};
+noBtn.addEventListener('mouseover', escapar);
+noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); escapar(); });
 
-// 4. EFECTO DE ESCRITURA Y REVELACIÓN
-const yesBtn = document.getElementById('yesBtn');
-const secretContent = document.getElementById('secretContent');
+// 4. ESCRITURA MÁGICA
+const texto = "Cada segundo a tu lado es un regalo del universo. Eres mi estrella más brillante. Te amo infinitamente. ❤️";
 const typewriterElement = document.getElementById('typewriter');
-const texto = "Eres mi estrella favorita en este cielo infinito. Gracias por cada segundo a mi lado. Te amo para siempre.";
-
 let i = 0;
-function escribirTexto() {
+
+function escribir() {
     if (i < texto.length) {
         typewriterElement.innerHTML += texto.charAt(i);
         i++;
-        setTimeout(escribirTexto, 50); // Velocidad de escritura
+        setTimeout(escribir, 50);
     }
 }
 
-yesBtn.addEventListener('click', () => {
-    secretContent.style.display = 'block';
-    noBtn.style.display = 'none'; // Desaparece el botón "No"
-    yesBtn.style.display = 'none'; // Desaparece el botón "Si"
+document.getElementById('yesBtn').addEventListener('click', () => {
+    document.getElementById('secretContent').style.display = 'block';
+    document.getElementById('yesBtn').style.display = 'none';
+    noBtn.style.display = 'none';
     document.querySelector('.question').style.display = 'none';
-    escribirTexto();
+    escribir();
 });
