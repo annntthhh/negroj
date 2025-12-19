@@ -1,55 +1,75 @@
-:root { --x: 50%; --y: 50%; }
+:root { 
+    --x: 50%; 
+    --y: 50%; 
+    --accent-color: #ff4d6d; /* Color por defecto */
+}
 
-/* --- COLORES DINÁMICOS POR ETAPA --- */
-/* Amanecer */
-body.sunrise { background: linear-gradient(180deg, #ff9a9e 0%, #fad0c4 100%); color: #2d3436; }
-body.sunrise .question { color: #e67e22; }
+/* --- CLIMAS Y COLORES DE ACENTO --- */
+body.sunrise { 
+    background: linear-gradient(180deg, #ff9a9e 0%, #fad0c4 100%); 
+    color: #2d3436; 
+    --accent-color: #e67e22; 
+}
+body.day { 
+    background: linear-gradient(180deg, #3a92d1 0%, #b4e3f5 100%); 
+    color: #1d1d1f; 
+    --accent-color: #0071e3; 
+}
+body.sunset { 
+    background: linear-gradient(180deg, #451e3e 0%, #fe5150 100%); 
+    color: white; 
+    --accent-color: #ffcc00; 
+}
+body.night { 
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%); 
+    color: white; 
+    --accent-color: #ff4d6d; 
+}
+
+/* --- CIELO --- */
+#sky-element { position: fixed; right: 10%; border-radius: 50%; z-index: 1; filter: blur(2px); transition: all 3s ease; width: 150px; height: 150px; }
 body.sunrise #sky-element { background: radial-gradient(circle, #fff, #ffeb3b); box-shadow: 0 0 80px #ff9800; top: 15%; }
-
-/* Día */
-body.day { background: linear-gradient(180deg, #3a92d1 0%, #b4e3f5 100%); color: #1d1d1f; }
-body.day .question { color: #0071e3; }
 body.day #sky-element { background: radial-gradient(circle, #fffdf7, #ffdb6e); box-shadow: 0 0 100px #ffdb6e; top: 5%; }
-
-/* Atardecer */
-body.sunset { background: linear-gradient(180deg, #451e3e 0%, #fe5150 100%); color: white; }
-body.sunset .question { color: #ffcc00; }
 body.sunset #sky-element { background: radial-gradient(circle, #ff5e62, #ff9966); box-shadow: 0 0 120px #ff5e62; top: 30%; }
-
-/* Noche */
-body.night { background: linear-gradient(180deg, #0f172a 0%, #020617 100%); color: white; }
-body.night .question { color: #ff4d6d; }
 body.night #sky-element { background: #f1f5f9; box-shadow: 0 0 40px rgba(241, 245, 249, 0.5); top: 10%; width: 80px; height: 80px; }
 
-/* --- ESTILOS GENERALES --- */
-body { margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
-
-#sky-element { position: fixed; right: 10%; border-radius: 50%; z-index: 1; filter: blur(2px); transition: all 3s ease; width: 150px; height: 150px; }
+/* --- INTERFAZ --- */
+body { margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; overflow: hidden; }
 
 .glass-card { backdrop-filter: blur(25px); border-radius: 30px; padding: 35px; text-align: center; width: 85%; max-width: 360px; z-index: 10; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
 
-.question { font-size: 2.2rem; font-weight: 800; margin: 20px 0; transition: color 2s ease; }
+.question { 
+    font-size: 2rem; 
+    font-weight: 600; 
+    margin: 20px 0; 
+    color: var(--accent-color); 
+    transition: color 1s ease; 
+    letter-spacing: -0.5px;
+}
 
 #clock { display: flex; justify-content: space-around; margin: 20px 0; background: rgba(0,0,0,0.08); padding: 15px; border-radius: 20px; }
 .time-segment span { font-size: 26px; font-weight: bold; }
 
-.button-group { margin-top: 30px; display: flex; justify-content: center; gap: 30px; position: relative; min-height: 60px; }
+.divider { 
+    height: 2px; 
+    background: linear-gradient(to right, transparent, var(--accent-color), transparent); 
+    margin-bottom: 20px; 
+    transition: background 1s ease;
+}
+
 button { padding: 12px 35px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
-#yesBtn { background: #ff4d6d; color: white; z-index: 11; }
+#yesBtn { background: var(--accent-color); color: white; z-index: 11; }
 #noBtn { background: #333; color: #eee; z-index: 12; transition: all 0.5s ease-out; }
 #noBtn.escaped { position: fixed; }
 
+/* --- ANIMACIONES Y OTROS --- */
 .cloud { position: fixed; width: 100px; height: 35px; background: rgba(255, 255, 255, 0.7); border-radius: 100px; filter: blur(12px); z-index: 2; animation: moveClouds var(--speed) linear infinite; }
 @keyframes moveClouds { from { left: -150px; } to { left: 100vw; } }
-
 .star-dot { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite ease-in-out; }
 @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-
 .lo-sabia { position: fixed; z-index: 100; font-size: 1.2rem; font-weight: 900; color: #ff4d6d; pointer-events: none; opacity: 0; text-shadow: 0 0 10px white; }
 .lo-sabia.show { animation: popUp 1s ease-out forwards; }
 @keyframes popUp { 0% { opacity: 0; transform: scale(0.5); } 30% { opacity: 1; transform: translateY(-20px) scale(1.1); } 100% { opacity: 0; transform: translateY(-50px); } }
-
 .hidden-content { display: none; margin-top: 25px; }
-.final-text { font-size: 18px; line-height: 1.6; font-style: italic; }
-.divider { height: 1px; background: linear-gradient(to right, transparent, #ff4d6d, transparent); margin-bottom: 20px; }
+.final-text { font-size: 18px; line-height: 1.6; font-weight: 500; }
 .cursor-glow { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; background: radial-gradient(circle 150px at var(--x) var(--y), rgba(255, 255, 255, 0.08) 0%, transparent 100%); }
