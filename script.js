@@ -1,4 +1,4 @@
-const fechaInicio = new Date(2023, 2, 30); // AJUSTA TU FECHA AQUÍ
+const fechaInicio = new Date(2023, 2, 30); // 2 = Marzo
 
 // 1. CLIMA DINÁMICO
 const horas = new Date().getHours();
@@ -27,10 +27,16 @@ function crearEstrellas() {
 
 // 2. FARO DE LUZ
 window.addEventListener('mousemove', (e) => {
-    const x = e.clientX || e.touches[0].clientX;
-    const y = e.clientY || e.touches[0].clientY;
+    const x = e.clientX || (e.touches && e.touches[0].clientX);
+    const y = e.clientY || (e.touches && e.touches[0].clientY);
     document.documentElement.style.setProperty('--x', x + 'px');
     document.documentElement.style.setProperty('--y', y + 'px');
+    
+    document.querySelectorAll('.glow-word').forEach(palabra => {
+        const rect = palabra.getBoundingClientRect();
+        const dist = Math.sqrt(Math.pow(x - (rect.left + rect.width/2), 2) + Math.pow(y - (rect.top + rect.height/2), 2));
+        palabra.style.opacity = dist < 140 ? 0.6 : 0.04;
+    });
 });
 
 // 3. RELOJ
@@ -46,7 +52,10 @@ const noBtn = document.getElementById('noBtn');
 const loSabiaOriginal = document.getElementById('lo-sabia-text');
 
 const escapar = () => {
-    // Mostrar aviso
+    if (!noBtn.classList.contains('escaped')) {
+        noBtn.classList.add('escaped');
+    }
+
     const aviso = loSabiaOriginal.cloneNode(true);
     const rect = noBtn.getBoundingClientRect();
     aviso.style.left = rect.left + 'px';
@@ -55,7 +64,6 @@ const escapar = () => {
     document.body.appendChild(aviso);
     setTimeout(() => aviso.remove(), 800);
 
-    // Mover botón
     const maxX = window.innerWidth - noBtn.offsetWidth - 20;
     const maxY = window.innerHeight - noBtn.offsetHeight - 20;
     noBtn.style.left = Math.random() * maxX + 'px';
