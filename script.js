@@ -1,5 +1,5 @@
 // CONFIGURACIÓN: Cambia los números por tu fecha real (Año, Mes-1, Día)
-const fechaInicio = new Date(2023, 11, 1); 
+const fechaInicio = new Date(2023, 03, 30); 
 
 // 1. CREAR GALAXIA DE ESTRELLAS
 function crearGalaxia() {
