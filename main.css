@@ -1,60 +1,38 @@
 :root { --x: 50%; --y: 50%; }
 
-/* MODO DÍA */
-body.day {
-    background: linear-gradient(180deg, #3a92d1 0%, #7bc6e3 50%, #b4e3f5 100%);
-    color: #1d1d1f;
-}
-body.day #sky-element { 
-    position: fixed; top: 5%; right: 10%; width: 150px; height: 150px; 
-    background: radial-gradient(circle, #fffdf7 0%, #fff5d6 20%, #ffdb6e 50%, transparent 80%);
-    border-radius: 50%; 
-    box-shadow: 0 0 100px #ffdb6e, 0 0 200px rgba(255, 219, 110, 0.4);
-    z-index: 1; filter: blur(2px);
-}
+/* --- ESTADOS DEL CLIMA --- */
+body.sunrise { background: linear-gradient(180deg, #ff9a9e 0%, #fad0c4 50%, #ffd1ff 100%); color: #2d3436; }
+body.sunrise #sky-element { background: radial-gradient(circle, #fff 0%, #ffeb3b 40%, #ff9800 100%); box-shadow: 0 0 80px #ff9800; top: 15%; }
 
-/* MODO NOCHE */
-body.night {
-    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
-    color: white;
-}
-body.night #sky-element { 
-    position: fixed; top: 10%; right: 15%; width: 80px; height: 80px; 
-    background: #f1f5f9; border-radius: 50%; box-shadow: 0 0 40px rgba(241, 245, 249, 0.5);
-    z-index: 1;
-}
+body.day { background: linear-gradient(180deg, #3a92d1 0%, #7bc6e3 50%, #b4e3f5 100%); color: #1d1d1f; }
+body.day #sky-element { background: radial-gradient(circle, #fffdf7 0%, #fff5d6 20%, #ffdb6e 50%, transparent 80%); box-shadow: 0 0 100px #ffdb6e, 0 0 200px rgba(255, 219, 110, 0.4); top: 5%; }
 
-.cloud {
-    position: fixed; width: 120px; height: 40px; background: rgba(255, 255, 255, 0.7);
-    border-radius: 100px; filter: blur(15px);
-    z-index: 2; animation: moveClouds var(--speed) linear infinite;
-}
+body.sunset { background: linear-gradient(180deg, #451e3e 0%, #fe5150 40%, #ff8d52 100%); color: white; }
+body.sunset #sky-element { background: radial-gradient(circle, #ff5e62 0%, #ff9966 60%, transparent 90%); box-shadow: 0 0 120px #ff5e62; top: 30%; }
 
+body.night { background: linear-gradient(180deg, #0f172a 0%, #020617 100%); color: white; }
+body.night #sky-element { background: #f1f5f9; box-shadow: 0 0 40px rgba(241, 245, 249, 0.5); top: 10%; width: 80px; height: 80px; }
+
+/* --- ELEMENTOS DEL CIELO --- */
+#sky-element { position: fixed; right: 10%; border-radius: 50%; z-index: 1; filter: blur(2px); transition: all 3s ease; width: 150px; height: 150px; }
+.cloud { position: fixed; width: 120px; height: 40px; background: rgba(255, 255, 255, 0.7); border-radius: 100px; filter: blur(15px); z-index: 2; animation: moveClouds var(--speed) linear infinite; }
 @keyframes moveClouds { from { left: -150px; } to { left: 100vw; } }
-
-.star-dot {
-    position: absolute; background: white; border-radius: 50%;
-    animation: twinkle var(--duration) infinite ease-in-out;
-}
+.star-dot { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite ease-in-out; }
 @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
+/* --- INTERFAZ --- */
 body { margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: -apple-system, sans-serif; overflow: hidden; }
+.glass-card { backdrop-filter: blur(25px); border-radius: 30px; padding: 35px; text-align: center; width: 85%; max-width: 360px; z-index: 10; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
 
-.glass-card { 
-    backdrop-filter: blur(25px); border-radius: 30px; padding: 35px; text-align: center; 
-    width: 85%; max-width: 360px; z-index: 10; 
-    background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); 
-}
-
-.icon { font-size: 3rem; margin-bottom: 15px; }
+.question { font-family: 'Dancing Script', cursive; font-size: 2.8rem; margin: 15px 0; color: #ff4d6d; text-shadow: 1px 1px 10px rgba(255, 77, 109, 0.2); animation: pulseHeart 2s ease-in-out infinite; }
+@keyframes pulseHeart { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 
 #clock { display: flex; justify-content: space-around; margin: 20px 0; background: rgba(0,0,0,0.08); padding: 15px; border-radius: 20px; }
 .time-segment span { font-size: 26px; font-weight: bold; }
 
 .button-group { margin-top: 30px; display: flex; justify-content: center; gap: 30px; position: relative; min-height: 60px; }
-button { padding: 12px 35px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; }
-
-#yesBtn { background: #ff4d6d; color: white; z-index: 11; transition: 0.3s; }
+button { padding: 12px 35px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
+#yesBtn { background: #ff4d6d; color: white; z-index: 11; }
 #noBtn { background: #333; color: #eee; z-index: 12; transition: all 0.5s ease-out; }
 #noBtn.escaped { position: fixed; }
 
@@ -63,11 +41,6 @@ button { padding: 12px 35px; border-radius: 50px; border: none; font-weight: bol
 @keyframes popUp { 0% { opacity: 0; transform: scale(0.5); } 30% { opacity: 1; transform: translateY(-20px) scale(1.1); } 100% { opacity: 0; transform: translateY(-50px); } }
 
 .hidden-content { display: none; margin-top: 25px; }
-.final-text { font-size: 18px; line-height: 1.6; font-style: italic; }
+.final-text { font-family: 'Dancing Script', cursive; font-size: 22px; line-height: 1.4; color: inherit; }
 .divider { height: 1px; background: linear-gradient(to right, transparent, #ff4d6d, transparent); margin-bottom: 20px; }
-
-.cursor-glow {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; z-index: 2;
-    background: radial-gradient(circle 150px at var(--x) var(--y), rgba(255, 255, 255, 0.08) 0%, transparent 100%);
-}
+.cursor-glow { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; background: radial-gradient(circle 150px at var(--x) var(--y), rgba(255, 255, 255, 0.08) 0%, transparent 100%); }
