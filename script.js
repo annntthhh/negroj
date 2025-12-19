@@ -5,35 +5,48 @@ function establecerClima() {
     const body = document.body;
     const mainIcon = document.getElementById('main-icon');
     const greeting = document.getElementById('greeting');
+    const favicon = document.getElementById('favicon');
     
     body.classList.remove('sunrise', 'day', 'sunset', 'night');
+
+    let emoji = "";
 
     if (horas >= 6 && horas < 9) {
         body.classList.add('sunrise');
         mainIcon.innerText = "🌅";
         greeting.innerText = "Un nuevo día para amarte";
+        emoji = "🌅";
         crearNubes(8);
     } else if (horas >= 9 && horas < 17) {
         body.classList.add('day');
         mainIcon.innerText = "☀️";
         greeting.innerText = "Incluso bajo el sol, tú brillas más";
+        emoji = "☀️";
         crearNubes(12);
     } else if (horas >= 17 && horas < 19) {
         body.classList.add('sunset');
         mainIcon.innerText = "🌇";
         greeting.innerText = "Eres mi atardecer favorito";
+        emoji = "🌇";
         crearNubes(10);
     } else {
         body.classList.add('night');
         mainIcon.innerText = "🌙";
         greeting.innerText = "Bajo la luz de la luna";
+        emoji = "🌙";
         crearEstrellas();
         crearNubes(6);
+    }
+
+    // Actualizar Favicon
+    if(favicon) {
+        favicon.href = `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${emoji}</text></svg>`;
     }
 }
 
 function crearNubes(num) {
     const contenedor = document.getElementById('clouds-container');
+    if(!contenedor) return;
     contenedor.innerHTML = ''; 
     for (let i = 0; i < num; i++) {
         const nube = document.createElement('div');
@@ -48,6 +61,7 @@ function crearNubes(num) {
 
 function crearEstrellas() {
     const contenedor = document.getElementById('stars');
+    if(!contenedor) return;
     contenedor.innerHTML = '';
     for (let i = 0; i < 80; i++) {
         const s = document.createElement('div');
