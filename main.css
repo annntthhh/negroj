@@ -1,5 +1,5 @@
 body {
-    background-color: #ffeef2; /* Un rosa muy clarito */
+    background-color: #ffeef2;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
@@ -14,40 +14,47 @@ body {
 
 .card {
     background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.5);
-    max-width: 350px;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+    max-width: 320px;
+}
+
+.snoopy-img {
+    width: 180px; /* Tamaño ideal para Snoopy */
+    height: auto;
+    margin-bottom: -10px; /* Lo acerca un poco al corazón */
 }
 
 .heart {
-    font-size: 50px;
+    font-size: 40px;
     animation: pulse 1.5s infinite;
+    margin-bottom: 10px;
 }
 
 h1 {
     color: #d63384;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 p {
-    color: #666;
-    line-height: 1.6;
+    color: #555;
+    font-size: 15px;
 }
 
 button {
     background-color: #ff4d6d;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 12px 25px;
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 16px;
-    transition: transform 0.3s;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 button:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     background-color: #ff758f;
 }
 
@@ -59,10 +66,9 @@ button:hover {
     animation: fadeIn 1s;
 }
 
-/* Animación del corazón pulsando */
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+    50% { transform: scale(1.1); }
     100% { transform: scale(1); }
 }
 
