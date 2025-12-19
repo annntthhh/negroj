@@ -18,15 +18,11 @@ function establecerClima() {
     }
 }
 
-// LÓGICA DE HUIDA DEL BOTÓN NO
 const noBtn = document.getElementById('noBtn');
 
 const escapar = () => {
-    if (!noBtn.classList.contains('escaped')) {
-        noBtn.classList.add('escaped');
-    }
-
-    // Texto de aviso
+    if (!noBtn.classList.contains('escaped')) noBtn.classList.add('escaped');
+    
     const original = document.getElementById('lo-sabia-text');
     const aviso = original.cloneNode(true);
     const rect = noBtn.getBoundingClientRect();
@@ -36,10 +32,8 @@ const escapar = () => {
     document.body.appendChild(aviso);
     setTimeout(() => aviso.remove(), 800);
 
-    // Mover a cualquier parte de la pantalla
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-    
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
     noBtn.style.left = x + 'px';
     noBtn.style.top = y + 'px';
 };
@@ -47,7 +41,6 @@ const escapar = () => {
 noBtn.addEventListener('mouseover', escapar);
 noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); escapar(); });
 
-// BOTÓN SÍ
 document.getElementById('yesBtn').addEventListener('click', () => {
     document.querySelector('.question').style.display = 'none';
     document.querySelector('.button-group').style.display = 'none';
@@ -66,7 +59,6 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     escribir();
 });
 
-// Reloj
 setInterval(() => {
     const diff = new Date() - fechaInicio;
     document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
