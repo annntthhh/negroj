@@ -4,12 +4,71 @@
     --accent-color: #ff4d6d; 
 }
 
-/* --- CLIMAS --- */
-body.sunrise { background: linear-gradient(180deg, #ff9a9e 0%, #fad0c4 100%); color: #2d3436; --accent-color: #e67e22; }
-body.day { background: linear-gradient(180deg, #3a92d1 0%, #b4e3f5 100%); color: #1d1d1f; --accent-color: #0071e3; }
-body.sunset { background: linear-gradient(180deg, #451e3e 0%, #fe5150 100%); color: white; --accent-color: #ffcc00; }
-body.night { background: linear-gradient(180deg, #0f172a 0%, #020617 100%); color: white; --accent-color: #ff4d6d; }
+/* --- SOL REALISTA --- */
+#sky-element { 
+    position: fixed; 
+    right: 10%; 
+    border-radius: 50%; 
+    z-index: 1; 
+    filter: blur(2px); 
+    transition: all 3s ease; 
+    width: 120px; 
+    height: 120px; 
+}
 
+/* Colores del Sol/Luna según la etapa */
+body.sunrise #sky-element { background: radial-gradient(circle, #fff, #ffeb3b 40%, #ff9800 100%); box-shadow: 0 0 80px #ff9800; top: 15%; }
+body.day #sky-element { background: radial-gradient(circle, #fffdf7 0%, #fff5d6 20%, #ffdb6e 50%, transparent 80%); box-shadow: 0 0 100px #ffdb6e, 0 0 200px rgba(255, 219, 110, 0.4); top: 5%; }
+body.sunset #sky-element { background: radial-gradient(circle, #ff5e62 0%, #ff9966 60%, transparent 90%); box-shadow: 0 0 120px #ff5e62; top: 30%; }
+body.night #sky-element { background: #f1f5f9; box-shadow: 0 0 40px rgba(241, 245, 249, 0.5); top: 10%; width: 80px; height: 80px; }
+
+/* --- RELOJ MEJORADO --- */
+#clock { 
+    display: flex; 
+    justify-content: space-around; 
+    background: rgba(0,0,0,0.06); 
+    padding: 25px 15px; 
+    border-radius: 20px; 
+    margin: 10px 0;
+}
+
+.time-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.time-segment span { 
+    font-size: 32px; /* Números más grandes */
+    font-weight: 800; 
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.time-segment label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+/* --- CORRECCIÓN "YO SABÍA" --- */
+.lo-sabia { 
+    position: fixed; 
+    z-index: 1000; 
+    font-size: 1.1rem; 
+    font-weight: 900; 
+    color: var(--accent-color); 
+    pointer-events: none; 
+    opacity: 0; 
+    background: white;
+    padding: 5px 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- ESTILO GENERAL --- */
 body { 
     margin: 0; 
     height: 100vh; 
@@ -20,74 +79,19 @@ body {
     overflow: hidden; 
 }
 
-/* Espaciado de la tarjeta */
 .glass-card { 
     backdrop-filter: blur(25px); 
     border-radius: 30px; 
-    padding: 45px 35px; /* Más espacio arriba y abajo */
+    padding: 40px; 
     text-align: center; 
-    width: 85%; 
-    max-width: 380px; 
+    width: 90%; 
+    max-width: 400px; 
     z-index: 10; 
-    background: rgba(255, 255, 255, 0.1); 
+    background: rgba(255, 255, 255, 0.15); 
     border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Esto separa automáticamente todos los elementos internos */
-}
-
-.icon { font-size: 3.5rem; margin-bottom: 10px; }
-
-#clock { 
-    display: flex; 
-    justify-content: space-around; 
-    background: rgba(0,0,0,0.06); 
-    padding: 20px; 
-    border-radius: 20px; 
-}
-
-.question { 
-    font-size: 2.2rem; 
-    font-weight: 700; 
-    color: var(--accent-color); 
-    margin: 10px 0;
-}
-
-/* BOTONES UNIFICADOS */
-.button-group { 
-    display: flex; 
-    justify-content: center; 
     gap: 25px; 
-    margin-top: 10px;
 }
 
-.dynamic-btn { 
-    padding: 14px 40px; 
-    border-radius: 50px; 
-    border: none; 
-    font-weight: bold; 
-    cursor: pointer; 
-    font-size: 16px; 
-    transition: transform 0.3s, background 1s ease;
-    background: var(--accent-color); /* Ambos botones usan el color de la hora */
-    color: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-#noBtn.escaped { position: fixed; z-index: 1000; }
-
-.divider { 
-    height: 2px; 
-    background: linear-gradient(to right, transparent, var(--accent-color), transparent); 
-    margin: 25px 0; 
-}
-
-.final-text { font-size: 19px; line-height: 1.6; font-weight: 500; font-style: italic; }
-
-/* --- CIELO Y DECORACIÓN --- */
-#sky-element { position: fixed; right: 10%; border-radius: 50%; z-index: 1; filter: blur(2px); transition: all 3s ease; width: 150px; height: 150px; }
-.cloud { position: fixed; background: rgba(255, 255, 255, 0.7); border-radius: 100px; filter: blur(12px); z-index: 2; animation: moveClouds var(--speed) linear infinite; }
-@keyframes moveClouds { from { left: -150px; } to { left: 100vw; } }
-.star-dot { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite ease-in-out; }
-@keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-.cursor-glow { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; background: radial-gradient(circle 150px at var(--x) var(--y), rgba(255, 255, 255, 0.08) 0%, transparent 100%); }
+/* (Mantén el resto de estilos de nubes y botones del código anterior) */
