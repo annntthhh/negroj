@@ -1,6 +1,5 @@
 const fechaInicio = new Date(2023, 2, 30); 
 
-// 1. CLIMA E ÍCONO DINÁMICO
 const horas = new Date().getHours();
 const body = document.body;
 const mainIcon = document.getElementById('main-icon');
@@ -15,7 +14,7 @@ if (horas >= 6 && horas < 18) {
     mainIcon.innerText = "🌙";
     document.getElementById('greeting').innerText = "Bajo la luz de la luna";
     crearEstrellas();
-    crearNubes(6); // Nubes nocturnas más sutiles
+    crearNubes(6);
 }
 
 function crearNubes(num) {
@@ -35,18 +34,16 @@ function crearEstrellas() {
     const contenedor = document.getElementById('stars');
     for (let i = 0; i < 80; i++) {
         const s = document.createElement('div');
-        s.style.position = 'absolute';
-        s.style.background = 'white';
-        s.style.width = s.style.height = '2px';
-        s.style.borderRadius = '50%';
+        s.className = 'star-dot';
+        s.style.width = '2px';
+        s.style.height = '2px';
         s.style.top = Math.random() * 100 + '%';
         s.style.left = Math.random() * 100 + '%';
-        s.style.opacity = Math.random();
+        s.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
         contenedor.appendChild(s);
     }
 }
 
-// 2. BOTÓN NO Y AVISO
 const noBtn = document.getElementById('noBtn');
 const loSabiaOriginal = document.getElementById('lo-sabia-text');
 
@@ -54,8 +51,6 @@ const escapar = () => {
     if (!noBtn.classList.contains('escaped')) {
         noBtn.classList.add('escaped');
     }
-    
-    // El aviso dura un poco más y es más suave
     const aviso = loSabiaOriginal.cloneNode(true);
     const rect = noBtn.getBoundingClientRect();
     aviso.style.left = rect.left + 'px';
@@ -73,14 +68,13 @@ const escapar = () => {
 noBtn.addEventListener('mouseover', escapar);
 noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); escapar(); });
 
-// 3. BOTÓN SÍ
 document.getElementById('yesBtn').addEventListener('click', () => {
     document.querySelector('.question').style.display = 'none';
     document.getElementById('yesBtn').style.display = 'none';
     noBtn.style.display = 'none';
     document.getElementById('secretContent').style.display = 'block';
     
-    const texto = "No miento, es díficil estar contigo pero yo también te amo negro, y demasiado. Siempre más que tú a mí.";
+    const texto = "No miento, es díficil estar contigo pero yo también te amo, y demasiado.";
     let i = 0;
     const tv = document.getElementById('typewriter');
     function escribir() {
@@ -93,8 +87,14 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     escribir();
 });
 
-// 4. MOVIMIENTO DEL MOUSE
 window.addEventListener('mousemove', (e) => {
     document.documentElement.style.setProperty('--x', e.clientX + 'px');
     document.documentElement.style.setProperty('--y', e.clientY + 'px');
 });
+
+setInterval(() => {
+    const diff = new Date() - fechaInicio;
+    document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+    document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+}, 1000);
