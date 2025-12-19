@@ -1,6 +1,12 @@
 body {
-    background-color: #ffeef2;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Aquí Snoopy ocupa TODA la pantalla de fondo */
+    background-image: linear-gradient(rgba(255, 238, 242, 0.6), rgba(255, 238, 242, 0.6)), url('snoopy.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    
+    font-family: 'Segoe UI', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,67 +15,37 @@ body {
 }
 
 .card {
-    background-color: white;
-    /* Cambiamos el 0.75 por 0.5 para que la imagen se vea más clara (menos blanca) */
-    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('snoopy.png');
-    
-    /* ESTO HACE A SNOOPY MÁS GRANDE */
-    background-size: 100% auto; 
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    padding: 60px 30px; /* Más espacio arriba y abajo */
+    background: rgba(255, 255, 255, 0.9); /* Tarjeta semi-transparente para que se vea el fondo */
+    padding: 40px;
     border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.6);
-    width: 320px;
-    min-height: 400px; /* Asegura que la tarjeta sea alta para que Snoopy se vea bien */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    backdrop-filter: blur(5px); /* Efecto de vidrio esmerilado */
 }
 
-.heart {
-    font-size: 50px;
-    animation: pulse 1.5s infinite;
-}
+.heart { font-size: 50px; animation: pulse 1.5s infinite; }
 
-h1 {
-    color: #d63384;
-    font-size: 24px;
-    margin: 15px 0;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
-}
-
-p {
-    color: #333;
-    font-weight: bold;
-    font-size: 16px;
-}
+h1 { color: #d63384; font-size: 22px; }
 
 button {
     background-color: #ff4d6d;
     color: white;
     border: none;
-    padding: 15px 30px;
+    padding: 15px 25px;
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 20px;
-    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
     font-size: 16px;
+    margin-top: 10px;
 }
 
 .hidden {
     display: none;
     margin-top: 20px;
     font-weight: bold;
-    color: #d63384;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    border-radius: 15px;
-    border: 2px solid #ffb6c1;
+    color: #ff4d6d;
+    font-size: 18px;
 }
 
 @keyframes pulse {
