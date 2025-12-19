@@ -10,15 +10,19 @@ function establecerClima() {
     if (horas >= 6 && horas < 9) {
         body.classList.add('sunrise');
         mainIcon.innerText = "🌅";
+        document.getElementById('greeting').innerText = "Un nuevo día para amarte";
     } else if (horas >= 9 && horas < 17) {
         body.classList.add('day');
         mainIcon.innerText = "☀️";
+        document.getElementById('greeting').innerText = "Incluso bajo el sol, tú brillas más";
     } else if (horas >= 17 && horas < 19) {
         body.classList.add('sunset');
         mainIcon.innerText = "🌇";
+        document.getElementById('greeting').innerText = "Eres mi atardecer favorito";
     } else {
         body.classList.add('night');
         mainIcon.innerText = "🌙";
+        document.getElementById('greeting').innerText = "Bajo la luz de la luna";
         crearEstrellas();
     }
     crearNubes(10);
@@ -27,12 +31,12 @@ function establecerClima() {
 const noBtn = document.getElementById('noBtn');
 
 const escapar = () => {
-    // Activa el modo escape
+    // Si aún no está en modo escape, lo activa
     if (!noBtn.classList.contains('escaped')) {
         noBtn.classList.add('escaped');
     }
 
-    // Mostrar el texto flotante
+    // Efecto visual del texto "Yo sabía"
     const original = document.getElementById('lo-sabia-text');
     const aviso = original.cloneNode(true);
     const rect = noBtn.getBoundingClientRect();
@@ -42,11 +46,10 @@ const escapar = () => {
     document.body.appendChild(aviso);
     setTimeout(() => aviso.remove(), 800);
 
-    // Mover a posición aleatoria
-    const maxX = window.innerWidth - 100;
-    const maxY = window.innerHeight - 50;
-    const newX = Math.random() * maxX;
-    const newY = Math.random() * maxY;
+    // Movimiento aleatorio real por toda la pantalla
+    const padding = 50;
+    const newX = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+    const newY = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
     
     noBtn.style.left = newX + 'px';
     noBtn.style.top = newY + 'px';
@@ -63,6 +66,7 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     const texto = "No miento, es difícil estar contigo pero yo también te amo negro, y demasiado. Siempre más que tú a mí";
     let i = 0;
     const tv = document.getElementById('typewriter');
+    tv.innerHTML = '';
     function escribir() {
         if (i < texto.length) {
             tv.innerHTML += texto.charAt(i);
@@ -73,22 +77,25 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     escribir();
 });
 
-// Reloj
+// Reloj dinámico
 setInterval(() => {
     const diff = new Date() - fechaInicio;
-    document.getElementById('days').innerText = Math.floor(diff / 86400000);
-    document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24);
-    document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60);
+    document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+    document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
 }, 1000);
 
 function crearNubes(n) {
     const cont = document.getElementById('clouds-container');
+    cont.innerHTML = '';
     for(let i=0; i<n; i++) {
         const c = document.createElement('div');
         c.className = 'cloud';
-        c.style.width = '150px'; c.style.height = '40px';
+        c.style.width = (Math.random()*100 + 100) + 'px'; 
+        c.style.height = '40px';
         c.style.top = Math.random() * 80 + '%';
-        c.style.setProperty('--speed', (Math.random()*20 + 20)+'s');
+        c.style.setProperty('--speed', (Math.random()*30 + 30)+'s');
+        c.style.opacity = Math.random() * 0.5;
         cont.appendChild(c);
     }
 }
