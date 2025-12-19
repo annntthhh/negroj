@@ -1,3 +1,8 @@
+:root {
+    --x: 50%;
+    --y: 50%;
+}
+
 body {
     margin: 0;
     background: radial-gradient(circle at center, #111a22 0%, #050505 100%);
@@ -8,6 +13,16 @@ body {
     font-family: 'Segoe UI', sans-serif;
     color: white;
     overflow: hidden;
+}
+
+/* Faro de luz */
+.cursor-glow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(circle 150px at var(--x) var(--y), rgba(255, 77, 109, 0.15) 0%, transparent 100%);
 }
 
 .glass-card {
@@ -21,9 +36,9 @@ body {
     max-width: 380px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     position: relative;
+    z-index: 10;
 }
 
-/* Diseño del Reloj */
 #clock {
     display: flex;
     justify-content: space-around;
@@ -33,18 +48,10 @@ body {
     border-radius: 15px;
 }
 
-.time-segment { display: flex; flex-direction: column; }
-.time-segment span { font-size: 24px; font-weight: bold; color: #ff4d6d; }
+.time-segment span { font-size: 24px; font-weight: bold; color: #ff4d6d; display: block; }
 .time-segment label { font-size: 10px; text-transform: uppercase; color: #aaa; }
 
-.question { margin-top: 25px; font-size: 20px; color: #ffd7e0; }
-
-/* Botones */
-.button-group {
-    margin-top: 20px;
-    position: relative;
-    height: 60px;
-}
+.button-group { margin-top: 20px; height: 60px; position: relative; }
 
 button {
     padding: 12px 25px;
@@ -55,26 +62,26 @@ button {
     transition: 0.3s;
 }
 
-#yesBtn {
-    background: #ff4d6d;
-    color: white;
-    box-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
-}
+#yesBtn { background: #ff4d6d; color: white; box-shadow: 0 0 15px rgba(255, 77, 109, 0.4); }
+#noBtn { background: #444; color: #ccc; position: absolute; left: 50%; transform: translateX(10px); }
 
-#noBtn {
-    background: #444;
-    color: #ccc;
-    position: absolute; /* Para que pueda moverse libremente */
-}
-
-/* Contenido Final */
 .hidden-content { display: none; margin-top: 20px; }
 .divider { height: 1px; background: linear-gradient(to right, transparent, #ff4d6d, transparent); margin-bottom: 20px; }
+.final-text { font-size: 18px; line-height: 1.6; color: #fff; }
 
-.final-text {
-    font-size: 18px;
-    line-height: 1.6;
-    min-height: 60px; /* Evita que la tarjeta salte mientras se escribe */
+/* Estrellas Fugaces */
+.shooting-star {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(-45deg, #fff, transparent);
+    animation: shooting 4s linear infinite;
+    z-index: 2;
 }
+.shooting-star:nth-child(1) { top: 10%; right: 10%; animation-delay: 1s; }
+.shooting-star:nth-child(2) { top: 40%; right: 30%; animation-delay: 5s; }
 
-.sparkle { margin-top: 15px; font-size: 20px; }
+@keyframes shooting {
+    0% { transform: translateX(0) translateY(0) rotate(45deg); width: 0; }
+    30% { width: 100px; }
+    100% { transform: translateX(-600px) translateY(600px) rotate(45deg); width: 0; }
+}
