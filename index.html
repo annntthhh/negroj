@@ -3,32 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Ti ✨</title>
+    <title>Para Mi Amor ✨</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-
-    <div class="stars-container">
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-    </div>
+    <div class="stars-container"></div>
 
     <div class="container">
         <div class="glass-card">
             <div class="icon">🌙</div>
-            <h1>Bajo el mismo cielo</h1>
-            <p class="description">Hay millones de estrellas, pero ninguna brilla como tú.</p>
+            <h1>Nuestro Tiempo</h1>
             
-            <button id="magicButton">Pulsa para una sorpresa</button>
+            <div id="clock">
+                <div class="time-segment">
+                    <span id="days">00</span>
+                    <label>Días</label>
+                </div>
+                <div class="time-segment">
+                    <span id="hours">00</span>
+                    <label>Hrs</label>
+                </div>
+                <div class="time-segment">
+                    <span id="minutes">00</span>
+                    <label>Min</label>
+                </div>
+            </div>
+
+            <p class="question">¿Me amas?</p>
             
-            <div id="hiddenMessage" class="hidden-content">
+            <div class="button-group">
+                <button id="yesBtn">¡SÍ! ❤️</button>
+                <button id="noBtn">No ❌</button>
+            </div>
+            
+            <div id="secretContent" class="hidden-content">
                 <div class="divider"></div>
-                <p class="final-text">Eres mi lugar favorito en el mundo. <br> <b>Te amo.</b></p>
-                <div class="sparkle">✨❤️✨</div>
+                <p id="typewriter" class="final-text"></p>
+                <div class="sparkle">✨🌙✨</div>
             </div>
         </div>
     </div>
