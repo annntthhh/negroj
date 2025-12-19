@@ -55,7 +55,6 @@ const escapar = () => {
     if (!noBtn.classList.contains('escaped')) {
         noBtn.classList.add('escaped');
     }
-
     const aviso = loSabiaOriginal.cloneNode(true);
     const rect = noBtn.getBoundingClientRect();
     aviso.style.left = rect.left + 'px';
