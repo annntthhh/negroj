@@ -1,15 +1,34 @@
 const fechaInicio = new Date(2023, 2, 30); // 2 = Marzo
 
-// 1. CLIMA DINÁMICO
+// 1. CLIMA DINÁMICO E ÍCONO
 const horas = new Date().getHours();
 const body = document.body;
+const mainIcon = document.getElementById('main-icon');
+
 if (horas >= 6 && horas < 18) {
     body.classList.add('day');
+    mainIcon.innerText = "☀️"; // Cambia a sol
     document.getElementById('greeting').innerText = "Incluso bajo el sol, tú brillas más";
+    crearNubes();
 } else {
     body.classList.add('night');
+    mainIcon.innerText = "🌙"; // Cambia a luna
     document.getElementById('greeting').innerText = "Bajo la luz de la luna";
     crearEstrellas();
+    crearNubes(); // Nubes nocturnas también quedan lindas
+}
+
+function crearNubes() {
+    const contenedor = document.getElementById('clouds-container');
+    for (let i = 0; i < 5; i++) {
+        const nube = document.createElement('div');
+        nube.className = 'cloud';
+        nube.style.top = Math.random() * 60 + '%';
+        nube.style.setProperty('--speed', (Math.random() * 30 + 30) + 's');
+        nube.style.opacity = Math.random() * 0.4 + 0.1;
+        nube.style.transform = `scale(${Math.random() * 1.5 + 0.5})`;
+        contenedor.appendChild(nube);
+    }
 }
 
 function crearEstrellas() {
@@ -20,6 +39,9 @@ function crearEstrellas() {
         s.style.width = s.style.height = '2px';
         s.style.top = Math.random() * 100 + '%';
         s.style.left = Math.random() * 100 + '%';
+        s.style.position = 'absolute';
+        s.style.background = 'white';
+        s.style.borderRadius = '50%';
         s.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
         contenedor.appendChild(s);
     }
