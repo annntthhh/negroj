@@ -1,7 +1,15 @@
-// CONFIGURACIÓN: Cambia los números por tu fecha real (Año, Mes-1, Día)
-const fechaInicio = new Date(2023, 03, 30); 
+const fechaInicio = new Date(2023, 03, 30); // AJUSTA TU FECHA AQUÍ (Año, Mes-1, Día)
 
-// 1. CREAR GALAXIA DE ESTRELLAS
+// 1. MENSAJE SEGÚN LA HORA (Saludo inteligente)
+const horas = new Date().getHours();
+const greeting = document.getElementById('greeting');
+if (horas >= 6 && horas < 18) {
+    greeting.innerText = "Incluso bajo el sol, tú brillas más";
+} else {
+    greeting.innerText = "Bajo la luz de la luna";
+}
+
+// 2. GALAXIA DE ESTRELLAS
 function crearGalaxia() {
     const contenedor = document.getElementById('stars');
     for (let i = 0; i < 150; i++) {
@@ -18,48 +26,33 @@ function crearGalaxia() {
 }
 crearGalaxia();
 
-// 2. FARO DE LUZ Y PALABRAS OCULTAS
-window.addEventListener('mousemove', (e) => {
-    actualizarFaro(e.clientX, e.clientY);
-});
-window.addEventListener('touchmove', (e) => {
-    actualizarFaro(e.touches[0].clientX, e.touches[0].clientY);
-});
-
-function actualizarFaro(x, y) {
+// 3. FARO DE LUZ Y PALABRAS OCULTAS
+const handleMove = (e) => {
+    const x = e.clientX || e.touches[0].clientX;
+    const y = e.clientY || e.touches[0].clientY;
     document.documentElement.style.setProperty('--x', `${x}px`);
     document.documentElement.style.setProperty('--y', `${y}px`);
     
     document.querySelectorAll('.glow-word').forEach(palabra => {
         const rect = palabra.getBoundingClientRect();
-        const centroX = rect.left + rect.width / 2;
-        const centroY = rect.top + rect.height / 2;
-        const distancia = Math.sqrt(Math.pow(x - centroX, 2) + Math.pow(y - centroY, 2));
-        
-        if (distancia < 140) {
-            palabra.style.color = 'rgba(255, 182, 193, 0.6)';
-            palabra.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.5)';
-        } else {
-            palabra.style.color = 'rgba(255, 255, 255, 0.02)';
-            palabra.style.textShadow = 'none';
-        }
+        const dist = Math.sqrt(Math.pow(x - (rect.left + rect.width/2), 2) + Math.pow(y - (rect.top + rect.height/2), 2));
+        palabra.style.opacity = dist < 140 ? 0.6 : 0.02;
     });
-}
+};
+window.addEventListener('mousemove', handleMove);
+window.addEventListener('touchmove', handleMove);
 
-// 3. CONTADOR DE TIEMPO
+// 4. RELOJ
 function actualizarReloj() {
     const diff = new Date() - fechaInicio;
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff / 3600000) % 24);
-    const m = Math.floor((diff / 60000) % 60);
-    document.getElementById('days').innerText = d.toString().padStart(2, '0');
-    document.getElementById('hours').innerText = h.toString().padStart(2, '0');
-    document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
+    document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+    document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
 }
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
 
-// 4. BOTÓN NO (SE DESLIZA SUAVEMENTE)
+// 5. BOTÓN NO
 const noBtn = document.getElementById('noBtn');
 noBtn.addEventListener('mouseover', () => {
     const maxX = window.innerWidth - noBtn.offsetWidth - 20;
@@ -68,13 +61,11 @@ noBtn.addEventListener('mouseover', () => {
     noBtn.style.top = `${Math.random() * maxY}px`;
 });
 
-// 5. REVELACIÓN FINAL (MÁQUINA DE ESCRIBIR)
+// 6. REVELACIÓN FINAL
 const textoAmor = "Cada segundo a tu lado es un regalo del universo. Eres mi estrella más brillante y mi lugar seguro. Te amo infinitamente. ❤️";
-const btnSi = document.getElementById('yesBtn');
-
-btnSi.addEventListener('click', () => {
+document.getElementById('yesBtn').addEventListener('click', () => {
     document.querySelector('.question').style.display = 'none';
-    btnSi.style.display = 'none';
+    document.getElementById('yesBtn').style.display = 'none';
     noBtn.style.display = 'none';
     document.getElementById('secretContent').style.display = 'block';
     
