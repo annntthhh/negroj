@@ -1,5 +1,5 @@
 // CONFIGURACIÓN: Cambia a tu fecha (Año, Mes-1, Día)
-const fechaInicio = new Date(2023, 11, 1); // Ejemplo: 1 de Dic de 2023
+const fechaInicio = new Date(2023, 03, 30); // Ejemplo: 1 de Dic de 2023
 
 // 1. FARO DE LUZ Y MENSAJES OCULTOS
 const glow = document.getElementById('glow');
