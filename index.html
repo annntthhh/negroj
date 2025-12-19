@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <div class="cursor-glow" id="glow"></div>
     <div id="sky-element"></div> 
     <div id="stars"></div>
     <div id="clouds-container"></div>
@@ -15,8 +16,8 @@
 
     <div class="container">
         <div class="glass-card">
-            <div class="icon" id="main-icon">☀️</div>
-            <h1>Juntos Por:</h1>
+            <div class="icon" id="main-icon">🌙</div>
+            <h1 id="greeting">Juntos Por</h1>
             
             <div id="clock">
                 <div class="time-segment"><span id="days">00</span><label>Días</label></div>
@@ -27,12 +28,12 @@
             <p class="question" id="question-text">¿Me amas?</p>
             
             <div class="button-group">
-                <button id="yesBtn" class="dynamic-btn">SÍ</button>
-                <button id="noBtn" class="dynamic-btn">No</button>
+                <button id="yesBtn">SÍ</button>
+                <button id="noBtn">No</button>
             </div>
             
             <div id="secretContent" class="hidden-content">
-                <div class="divider"></div>
+                <div class="divider" id="dynamic-divider"></div>
                 <p id="typewriter" class="final-text"></p>
             </div>
         </div>
