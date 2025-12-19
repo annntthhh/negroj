@@ -1,22 +1,13 @@
 :root { --x: 50%; --y: 50%; }
 
-/* MODO DÍA MEJORADO */
+/* MODO DÍA */
 body.day {
     background: linear-gradient(180deg, #4facfe 0%, #72c6ef 40%, #a6defa 100%);
     color: #1d1d1f;
 }
-body.day .glass-card { 
-    background: rgba(255, 255, 255, 0.25); 
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
+body.day .glass-card { background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4); }
 body.day .time-segment span { color: #0071e3; }
-body.day #sky-element { 
-    position: fixed; top: 8%; right: 12%; width: 80px; height: 80px; 
-    background: radial-gradient(circle, #fff9e6 0%, #ffce54 60%, #ffb900 100%);
-    border-radius: 50%; z-index: 1;
-    box-shadow: 0 0 40px #ffce54, 0 0 80px rgba(255, 206, 84, 0.4);
-    animation: sunGlow 6s ease-in-out infinite;
-}
+body.day #main-icon { text-shadow: 0 0 20px #ffce54; color: #ffce54; }
 
 /* MODO NOCHE */
 body.night {
@@ -25,32 +16,41 @@ body.night {
 }
 body.night .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); }
 body.night .time-segment span { color: #ff4d6d; }
-body.night #sky-element { 
-    position: fixed; top: 10%; right: 10%; width: 50px; height: 50px; 
-    background: #f1f5f9; border-radius: 50%; box-shadow: 0 0 25px #f1f5f9; z-index: 1;
+body.night #main-icon { text-shadow: 0 0 20px #f1f5f9; color: #f1f5f9; }
+
+/* NUBES REALISTAS (CSS puro) */
+.cloud {
+    position: fixed;
+    width: 200px;
+    height: 60px;
+    background: #fff;
+    border-radius: 200px;
+    opacity: 0.5;
+    filter: blur(20px);
+    z-index: 1;
+    animation: moveClouds var(--speed) linear infinite;
+}
+.cloud::after, .cloud::before {
+    content: '';
+    position: absolute;
+    background: #fff;
+    width: 100px; height: 80px;
+    top: -40px; left: 20px;
+    border-radius: 100px;
+}
+.cloud::after { width: 120px; height: 120px; top: -70px; left: 70px; }
+
+@keyframes moveClouds {
+    from { left: -250px; }
+    to { left: 100vw; }
 }
 
-@keyframes sunGlow { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.1); opacity: 1; } }
-
+/* ESTILOS BASE */
 body { margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: -apple-system, sans-serif; overflow: hidden; transition: 2s; }
 
-#stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-.star-dot { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite; }
-@keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+.icon { font-size: 3rem; margin-bottom: 10px; transition: 0.5s; }
 
-.cursor-glow {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; z-index: 2;
-    background: radial-gradient(circle 180px at var(--x) var(--y), rgba(255, 77, 109, 0.15) 0%, transparent 100%);
-}
-
-.glass-card {
-    backdrop-filter: blur(20px); border-radius: 30px; padding: 35px; text-align: center;
-    width: 85%; max-width: 360px; z-index: 10;
-    animation: entrance 1.5s ease-out;
-}
-
-@keyframes entrance { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+.glass-card { backdrop-filter: blur(20px); border-radius: 30px; padding: 35px; text-align: center; width: 85%; max-width: 360px; z-index: 10; animation: entrance 1.5s ease-out; }
 
 #clock { display: flex; justify-content: space-around; margin: 20px 0; background: rgba(0,0,0,0.05); padding: 15px; border-radius: 20px; }
 .time-segment span { font-size: 26px; font-weight: bold; }
