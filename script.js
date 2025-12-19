@@ -1,24 +1,40 @@
 const fechaInicio = new Date(2023, 2, 30); 
 
-const horas = new Date().getHours();
-const body = document.body;
-const mainIcon = document.getElementById('main-icon');
+function establecerClima() {
+    const horas = new Date().getHours();
+    const body = document.body;
+    const mainIcon = document.getElementById('main-icon');
+    const greeting = document.getElementById('greeting');
+    
+    body.classList.remove('sunrise', 'day', 'sunset', 'night');
 
-if (horas >= 6 && horas < 18) {
-    body.classList.add('day');
-    mainIcon.innerText = "☀️";
-    document.getElementById('greeting').innerText = "Incluso bajo el sol, tú brillas más";
-    crearNubes(12);
-} else {
-    body.classList.add('night');
-    mainIcon.innerText = "🌙";
-    document.getElementById('greeting').innerText = "Bajo la luz de la luna";
-    crearEstrellas();
-    crearNubes(6);
+    if (horas >= 6 && horas < 9) {
+        body.classList.add('sunrise');
+        mainIcon.innerText = "🌅";
+        greeting.innerText = "Un nuevo día para amarte";
+        crearNubes(8);
+    } else if (horas >= 9 && horas < 17) {
+        body.classList.add('day');
+        mainIcon.innerText = "☀️";
+        greeting.innerText = "Incluso bajo el sol, tú brillas más";
+        crearNubes(12);
+    } else if (horas >= 17 && horas < 19) {
+        body.classList.add('sunset');
+        mainIcon.innerText = "🌇";
+        greeting.innerText = "Eres mi atardecer favorito";
+        crearNubes(10);
+    } else {
+        body.classList.add('night');
+        mainIcon.innerText = "🌙";
+        greeting.innerText = "Bajo la luz de la luna";
+        crearEstrellas();
+        crearNubes(6);
+    }
 }
 
 function crearNubes(num) {
     const contenedor = document.getElementById('clouds-container');
+    contenedor.innerHTML = ''; 
     for (let i = 0; i < num; i++) {
         const nube = document.createElement('div');
         nube.className = 'cloud';
@@ -32,11 +48,11 @@ function crearNubes(num) {
 
 function crearEstrellas() {
     const contenedor = document.getElementById('stars');
+    contenedor.innerHTML = '';
     for (let i = 0; i < 80; i++) {
         const s = document.createElement('div');
         s.className = 'star-dot';
-        s.style.width = '2px';
-        s.style.height = '2px';
+        s.style.width = s.style.height = '2px';
         s.style.top = Math.random() * 100 + '%';
         s.style.left = Math.random() * 100 + '%';
         s.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
@@ -48,9 +64,7 @@ const noBtn = document.getElementById('noBtn');
 const loSabiaOriginal = document.getElementById('lo-sabia-text');
 
 const escapar = () => {
-    if (!noBtn.classList.contains('escaped')) {
-        noBtn.classList.add('escaped');
-    }
+    if (!noBtn.classList.contains('escaped')) noBtn.classList.add('escaped');
     const aviso = loSabiaOriginal.cloneNode(true);
     const rect = noBtn.getBoundingClientRect();
     aviso.style.left = rect.left + 'px';
@@ -74,7 +88,7 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     noBtn.style.display = 'none';
     document.getElementById('secretContent').style.display = 'block';
     
-    const texto = "No miento, es díficil estar contigo pero yo también te amo negro, y demasiado. Siempre más que tú a mí.";
+    const texto = "No miento, es díficil estar contigo pero yo también te amo, y demasiado.";
     let i = 0;
     const tv = document.getElementById('typewriter');
     function escribir() {
@@ -98,3 +112,5 @@ setInterval(() => {
     document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
     document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
 }, 1000);
+
+establecerClima();
