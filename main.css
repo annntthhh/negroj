@@ -8,72 +8,72 @@ body {
     margin: 0;
 }
 
-.container {
-    text-align: center;
-}
-
 .card {
-    background: white;
-    /* Esto pone a snoopy.png como fondo de la tarjeta */
-    /* El gradiente blanco suave ayuda a que el texto se lea bien encima */
-    background-image: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url('snoopy.png');
-    background-size: cover;
-    background-position: center;
+    background-color: white;
+    /* Cambiamos el 0.75 por 0.5 para que la imagen se vea más clara (menos blanca) */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('snoopy.png');
     
-    padding: 40px;
+    /* ESTO HACE A SNOOPY MÁS GRANDE */
+    background-size: 100% auto; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    padding: 60px 30px; /* Más espacio arriba y abajo */
     border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
-    max-width: 320px;
-    position: relative;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.6);
+    width: 320px;
+    min-height: 400px; /* Asegura que la tarjeta sea alta para que Snoopy se vea bien */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .heart {
     font-size: 50px;
     animation: pulse 1.5s infinite;
-    margin-bottom: 10px;
 }
 
 h1 {
     color: #d63384;
-    font-size: 22px;
-    text-shadow: 1px 1px 2px white; /* Ayuda a leer sobre el fondo */
+    font-size: 24px;
+    margin: 15px 0;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
 }
 
 p {
-    color: #444;
-    font-weight: 500;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 button {
     background-color: #ff4d6d;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 15px 30px;
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 15px;
-    box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+    font-size: 16px;
 }
 
 .hidden {
     display: none;
     margin-top: 20px;
     font-weight: bold;
-    color: #ff4d6d;
-    animation: fadeIn 1s forwards;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 10px;
+    color: #d63384;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #ffb6c1;
 }
 
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
