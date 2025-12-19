@@ -1,7 +1,7 @@
 :root { 
     --x: 50%; 
     --y: 50%; 
-    --accent-color: #ff4d6d; /* Color por defecto */
+    --accent-color: #ff4d6d; 
 }
 
 /* --- CLIMAS Y COLORES DE ACENTO --- */
@@ -38,6 +38,9 @@ body { margin: 0; height: 100vh; display: flex; justify-content: center; align-i
 
 .glass-card { backdrop-filter: blur(25px); border-radius: 30px; padding: 35px; text-align: center; width: 85%; max-width: 360px; z-index: 10; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
 
+/* Arreglo: Icono más grande */
+.icon { font-size: 3.5rem; margin-bottom: 10px; }
+
 .question { 
     font-size: 2rem; 
     font-weight: 600; 
@@ -58,8 +61,11 @@ body { margin: 0; height: 100vh; display: flex; justify-content: center; align-i
 }
 
 button { padding: 12px 35px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
+
 #yesBtn { background: var(--accent-color); color: white; z-index: 11; }
-#noBtn { background: #333; color: #eee; z-index: 12; transition: all 0.5s ease-out; }
+
+/* Arreglo: El botón No ahora usa el color dinámico de acento */
+#noBtn { background: var(--accent-color); color: white; z-index: 12; transition: all 0.5s ease-out; }
 #noBtn.escaped { position: fixed; }
 
 /* --- ANIMACIONES Y OTROS --- */
