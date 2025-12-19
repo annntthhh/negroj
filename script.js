@@ -4,34 +4,34 @@ function establecerClima() {
     const horas = new Date().getHours();
     const body = document.body;
     const mainIcon = document.getElementById('main-icon');
+    const greeting = document.getElementById('greeting');
     
     body.classList.remove('sunrise', 'day', 'sunset', 'night');
 
     if (horas >= 6 && horas < 9) {
         body.classList.add('sunrise');
         mainIcon.innerText = "🌅";
-        document.getElementById('greeting').innerText = "Un nuevo día para amarte";
+        greeting.innerText = "Un nuevo día para amarte";
         crearNubes(8);
     } else if (horas >= 9 && horas < 17) {
         body.classList.add('day');
         mainIcon.innerText = "☀️";
-        document.getElementById('greeting').innerText = "Incluso bajo el sol, tú brillas más";
+        greeting.innerText = "Incluso bajo el sol, tú brillas más";
         crearNubes(12);
     } else if (horas >= 17 && horas < 19) {
         body.classList.add('sunset');
         mainIcon.innerText = "🌇";
-        document.getElementById('greeting').innerText = "Eres mi atardecer favorito";
+        greeting.innerText = "Eres mi atardecer favorito";
         crearNubes(10);
     } else {
         body.classList.add('night');
         mainIcon.innerText = "🌙";
-        document.getElementById('greeting').innerText = "Bajo la luz de la luna";
+        greeting.innerText = "Bajo la luz de la luna";
         crearEstrellas();
         crearNubes(6);
     }
 }
 
-// ... (Funciones crearNubes y crearEstrellas se mantienen igual) ...
 function crearNubes(num) {
     const contenedor = document.getElementById('clouds-container');
     contenedor.innerHTML = ''; 
@@ -65,6 +65,18 @@ const noBtn = document.getElementById('noBtn');
 
 const escapar = () => {
     if (!noBtn.classList.contains('escaped')) noBtn.classList.add('escaped');
+    
+    // CORRECCIÓN: El texto ahora brota desde el botón
+    const originalAviso = document.getElementById('lo-sabia-text');
+    const aviso = originalAviso.cloneNode(true);
+    const rect = noBtn.getBoundingClientRect();
+    
+    aviso.style.left = rect.left + 'px';
+    aviso.style.top = (rect.top - 30) + 'px';
+    aviso.classList.add('show');
+    document.body.appendChild(aviso);
+    setTimeout(() => aviso.remove(), 800);
+
     const maxX = window.innerWidth - noBtn.offsetWidth - 40;
     const maxY = window.innerHeight - noBtn.offsetHeight - 40;
     noBtn.style.left = Math.random() * maxX + 'px';
