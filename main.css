@@ -38,7 +38,6 @@ body { margin: 0; height: 100vh; display: flex; justify-content: center; align-i
 
 .glass-card { backdrop-filter: blur(25px); border-radius: 30px; padding: 35px; text-align: center; width: 85%; max-width: 360px; z-index: 10; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
 
-/* Arreglo: Icono más grande */
 .icon { font-size: 3.5rem; margin-bottom: 10px; }
 
 .question { 
@@ -61,11 +60,9 @@ body { margin: 0; height: 100vh; display: flex; justify-content: center; align-i
 }
 
 button { padding: 12px 35px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
-
 #yesBtn { background: var(--accent-color); color: white; z-index: 11; }
 
-/* Arreglo: El botón No ahora usa el color dinámico de acento */
-#noBtn { background: var(--accent-color); color: white; z-index: 12; transition: all 0.5s ease-out; }
+#noBtn { background: var(--accent-color); color: white; z-index: 12; transition: all 0.8s ease-out; }
 #noBtn.escaped { position: fixed; }
 
 /* --- ANIMACIONES Y OTROS --- */
@@ -73,9 +70,11 @@ button { padding: 12px 35px; border-radius: 50px; border: none; font-weight: bol
 @keyframes moveClouds { from { left: -150px; } to { left: 100vw; } }
 .star-dot { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite ease-in-out; }
 @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-.lo-sabia { position: fixed; z-index: 100; font-size: 1.2rem; font-weight: 900; color: #ff4d6d; pointer-events: none; opacity: 0; text-shadow: 0 0 10px white; }
+
+.lo-sabia { position: fixed; z-index: 100; font-size: 1.2rem; font-weight: 900; color: var(--accent-color); pointer-events: none; opacity: 0; text-shadow: 0 0 10px rgba(255,255,255,0.5); transition: color 1s ease; }
 .lo-sabia.show { animation: popUp 1s ease-out forwards; }
 @keyframes popUp { 0% { opacity: 0; transform: scale(0.5); } 30% { opacity: 1; transform: translateY(-20px) scale(1.1); } 100% { opacity: 0; transform: translateY(-50px); } }
+
 .hidden-content { display: none; margin-top: 25px; }
 .final-text { font-size: 18px; line-height: 1.6; font-weight: 500; }
 .cursor-glow { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; background: radial-gradient(circle 150px at var(--x) var(--y), rgba(255, 255, 255, 0.08) 0%, transparent 100%); }
