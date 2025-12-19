@@ -41,7 +41,7 @@ function crearNubes(num) {
         nube.style.top = Math.random() * 70 + '%';
         nube.style.setProperty('--speed', (Math.random() * 50 + 40) + 's');
         nube.style.opacity = Math.random() * 0.4 + 0.2;
-        nube.style.transform = `scale(${Math.random() * 1.2 + 0.3})`;
+        nube.style.transform = `scale(${Math.random() * 1.0 + 0.3})`;
         contenedor.appendChild(nube);
     }
 }
