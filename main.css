@@ -14,20 +14,21 @@ body {
 
 .card {
     background: white;
-    padding: 30px;
+    /* Esto pone a snoopy.png como fondo de la tarjeta */
+    /* El gradiente blanco suave ayuda a que el texto se lea bien encima */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url('snoopy.png');
+    background-size: cover;
+    background-position: center;
+    
+    padding: 40px;
     border-radius: 30px;
     box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
     max-width: 320px;
-}
-
-.snoopy-img {
-    width: 180px; /* Tamaño ideal para Snoopy */
-    height: auto;
-    margin-bottom: -10px; /* Lo acerca un poco al corazón */
+    position: relative;
 }
 
 .heart {
-    font-size: 40px;
+    font-size: 50px;
     animation: pulse 1.5s infinite;
     margin-bottom: 10px;
 }
@@ -35,11 +36,12 @@ body {
 h1 {
     color: #d63384;
     font-size: 22px;
+    text-shadow: 1px 1px 2px white; /* Ayuda a leer sobre el fondo */
 }
 
 p {
-    color: #555;
-    font-size: 15px;
+    color: #444;
+    font-weight: 500;
 }
 
 button {
@@ -50,12 +52,8 @@ button {
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: scale(1.05);
-    background-color: #ff758f;
+    margin-top: 15px;
+    box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
 }
 
 .hidden {
@@ -63,7 +61,10 @@ button:hover {
     margin-top: 20px;
     font-weight: bold;
     color: #ff4d6d;
-    animation: fadeIn 1s;
+    animation: fadeIn 1s forwards;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 @keyframes pulse {
