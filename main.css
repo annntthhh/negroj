@@ -1,25 +1,36 @@
 :root { --x: 50%; --y: 50%; }
 
-/* CLIMA DINÁMICO */
+/* MODO DÍA MEJORADO */
 body.day {
-    background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(180deg, #4facfe 0%, #72c6ef 40%, #a6defa 100%);
     color: #1d1d1f;
 }
-body.day .glass-card { background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.5); }
+body.day .glass-card { 
+    background: rgba(255, 255, 255, 0.25); 
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+body.day .time-segment span { color: #0071e3; }
 body.day #sky-element { 
-    position: fixed; top: 10%; right: 10%; width: 70px; height: 70px; 
-    background: #ffce54; border-radius: 50%; box-shadow: 0 0 40px #ffce54; z-index: 1;
+    position: fixed; top: 8%; right: 12%; width: 80px; height: 80px; 
+    background: radial-gradient(circle, #fff9e6 0%, #ffce54 60%, #ffb900 100%);
+    border-radius: 50%; z-index: 1;
+    box-shadow: 0 0 40px #ffce54, 0 0 80px rgba(255, 206, 84, 0.4);
+    animation: sunGlow 6s ease-in-out infinite;
 }
 
+/* MODO NOCHE */
 body.night {
     background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
     color: white;
 }
 body.night .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); }
+body.night .time-segment span { color: #ff4d6d; }
 body.night #sky-element { 
     position: fixed; top: 10%; right: 10%; width: 50px; height: 50px; 
     background: #f1f5f9; border-radius: 50%; box-shadow: 0 0 25px #f1f5f9; z-index: 1;
 }
+
+@keyframes sunGlow { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.1); opacity: 1; } }
 
 body { margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: -apple-system, sans-serif; overflow: hidden; transition: 2s; }
 
@@ -44,36 +55,13 @@ body { margin: 0; height: 100vh; display: flex; justify-content: center; align-i
 #clock { display: flex; justify-content: space-around; margin: 20px 0; background: rgba(0,0,0,0.05); padding: 15px; border-radius: 20px; }
 .time-segment span { font-size: 26px; font-weight: bold; }
 
-/* BOTONES CORREGIDOS */
-.button-group {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* Espacio entre botones */
-    position: relative;
-    min-height: 50px;
-}
-
-button {
-    padding: 12px 35px;
-    border-radius: 50px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-    transition: transform 0.2s;
-}
-
+.button-group { margin-top: 30px; display: flex; justify-content: center; gap: 30px; position: relative; min-height: 50px; }
+button { padding: 12px 35px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; }
 #yesBtn { background: #ff4d6d; color: white; z-index: 11; }
 #noBtn { background: #333; color: #999; z-index: 12; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
-
-/* Cuando el botón empieza a escapar */
 #noBtn.escaped { position: fixed; }
 
-.lo-sabia {
-    position: fixed; z-index: 100; font-size: 1.2rem; font-weight: 900; color: #ff4d6d;
-    pointer-events: none; opacity: 0; text-shadow: 0 0 10px white;
-}
+.lo-sabia { position: fixed; z-index: 100; font-size: 1.2rem; font-weight: 900; color: #ff4d6d; pointer-events: none; opacity: 0; text-shadow: 0 0 10px white; }
 .lo-sabia.show { animation: popUp 0.8s ease-out forwards; }
 @keyframes popUp { 0% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: translateY(-40px) scale(1.2); } 100% { opacity: 0; transform: translateY(-60px); } }
 
