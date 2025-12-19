@@ -4,71 +4,12 @@
     --accent-color: #ff4d6d; 
 }
 
-/* --- SOL REALISTA --- */
-#sky-element { 
-    position: fixed; 
-    right: 10%; 
-    border-radius: 50%; 
-    z-index: 1; 
-    filter: blur(2px); 
-    transition: all 3s ease; 
-    width: 120px; 
-    height: 120px; 
-}
+/* --- CLIMAS --- */
+body.sunrise { background: linear-gradient(180deg, #ff9a9e 0%, #fad0c4 100%); color: #2d3436; --accent-color: #e67e22; }
+body.day { background: linear-gradient(180deg, #3a92d1 0%, #b4e3f5 100%); color: #1d1d1f; --accent-color: #0071e3; }
+body.sunset { background: linear-gradient(180deg, #451e3e 0%, #fe5150 100%); color: white; --accent-color: #ffcc00; }
+body.night { background: linear-gradient(180deg, #0f172a 0%, #020617 100%); color: white; --accent-color: #ff4d6d; }
 
-/* Colores del Sol/Luna según la etapa */
-body.sunrise #sky-element { background: radial-gradient(circle, #fff, #ffeb3b 40%, #ff9800 100%); box-shadow: 0 0 80px #ff9800; top: 15%; }
-body.day #sky-element { background: radial-gradient(circle, #fffdf7 0%, #fff5d6 20%, #ffdb6e 50%, transparent 80%); box-shadow: 0 0 100px #ffdb6e, 0 0 200px rgba(255, 219, 110, 0.4); top: 5%; }
-body.sunset #sky-element { background: radial-gradient(circle, #ff5e62 0%, #ff9966 60%, transparent 90%); box-shadow: 0 0 120px #ff5e62; top: 30%; }
-body.night #sky-element { background: #f1f5f9; box-shadow: 0 0 40px rgba(241, 245, 249, 0.5); top: 10%; width: 80px; height: 80px; }
-
-/* --- RELOJ MEJORADO --- */
-#clock { 
-    display: flex; 
-    justify-content: space-around; 
-    background: rgba(0,0,0,0.06); 
-    padding: 25px 15px; 
-    border-radius: 20px; 
-    margin: 10px 0;
-}
-
-.time-segment {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 80px;
-}
-
-.time-segment span { 
-    font-size: 32px; /* Números más grandes */
-    font-weight: 800; 
-    line-height: 1;
-    margin-bottom: 5px;
-}
-
-.time-segment label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.7;
-}
-
-/* --- CORRECCIÓN "YO SABÍA" --- */
-.lo-sabia { 
-    position: fixed; 
-    z-index: 1000; 
-    font-size: 1.1rem; 
-    font-weight: 900; 
-    color: var(--accent-color); 
-    pointer-events: none; 
-    opacity: 0; 
-    background: white;
-    padding: 5px 12px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* --- ESTILO GENERAL --- */
 body { 
     margin: 0; 
     height: 100vh; 
@@ -79,19 +20,84 @@ body {
     overflow: hidden; 
 }
 
+/* --- TARJETA --- */
 .glass-card { 
     backdrop-filter: blur(25px); 
-    border-radius: 30px; 
+    border-radius: 35px; 
     padding: 40px; 
     text-align: center; 
     width: 90%; 
     max-width: 400px; 
     z-index: 10; 
-    background: rgba(255, 255, 255, 0.15); 
+    background: rgba(255, 255, 255, 0.12); 
     border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: column;
     gap: 25px; 
 }
 
-/* (Mantén el resto de estilos de nubes y botones del código anterior) */
+.icon { font-size: 3.5rem; margin-bottom: -10px; }
+h1 { font-size: 1.5rem; margin: 0; font-weight: 700; }
+
+/* --- RELOJ MEJORADO --- */
+#clock { 
+    display: flex; 
+    justify-content: space-around; 
+    background: rgba(0,0,0,0.06); 
+    padding: 20px 10px; 
+    border-radius: 20px; 
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.time-segment { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
+.time-segment span { font-size: 36px; font-weight: 800; line-height: 1; margin-bottom: 5px; color: inherit; }
+.time-segment label { font-size: 11px; text-transform: uppercase; font-weight: 600; opacity: 0.8; }
+
+.question { font-size: 2.2rem; font-weight: 700; color: var(--accent-color); margin: 5px 0; }
+
+/* --- BOTONES --- */
+.button-group { display: flex; justify-content: center; gap: 20px; }
+.dynamic-btn { 
+    padding: 15px 45px; 
+    border-radius: 50px; 
+    border: none; 
+    font-weight: 800; 
+    cursor: pointer; 
+    font-size: 16px; 
+    background: var(--accent-color); 
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#noBtn.escaped { position: fixed; z-index: 1000; }
+
+/* --- YO SABÍA (CORREGIDO) --- */
+.lo-sabia { 
+    position: fixed; 
+    z-index: 1001; 
+    font-size: 1rem; 
+    font-weight: 900; 
+    color: white; 
+    background: var(--accent-color);
+    padding: 8px 15px;
+    border-radius: 12px;
+    pointer-events: none; 
+    opacity: 0; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.lo-sabia.show { animation: popUp 0.8s ease-out forwards; }
+@keyframes popUp { 
+    0% { opacity: 0; transform: scale(0.5) translateY(0); } 
+    30% { opacity: 1; transform: scale(1.1) translateY(-20px); } 
+    100% { opacity: 0; transform: scale(1) translateY(-40px); } 
+}
+
+/* --- CIELO --- */
+#sky-element { position: fixed; right: 8%; border-radius: 50%; z-index: 1; filter: blur(2px); transition: all 3s ease; width: 130px; height: 130px; }
+.cloud { position: fixed; background: rgba(255, 255, 255, 0.7); border-radius: 100px; filter: blur(12px); z-index: 2; animation: moveClouds var(--speed) linear infinite; }
+@keyframes moveClouds { from { left: -150px; } to { left: 100vw; } }
+.star-dot { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite ease-in-out; }
+@keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+.final-text { font-size: 19px; line-height: 1.6; font-weight: 600; font-style: italic; }
+.divider { height: 2px; background: linear-gradient(to right, transparent, var(--accent-color), transparent); margin-bottom: 20px; }
