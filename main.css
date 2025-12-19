@@ -1,24 +1,21 @@
 :root { --x: 50%; --y: 50%; }
 
-/* MODO DÍA (iPhone Style) */
+/* CLIMA DINÁMICO */
 body.day {
     background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
     color: #1d1d1f;
 }
 body.day .glass-card { background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.5); }
-body.day .time-segment span { color: #0071e3; }
 body.day #sky-element { 
     position: fixed; top: 10%; right: 10%; width: 70px; height: 70px; 
     background: #ffce54; border-radius: 50%; box-shadow: 0 0 40px #ffce54; z-index: 1;
 }
 
-/* MODO NOCHE (iPhone Style) */
 body.night {
     background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
     color: white;
 }
 body.night .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); }
-body.night .time-segment span { color: #ff4d6d; }
 body.night #sky-element { 
     position: fixed; top: 10%; right: 10%; width: 50px; height: 50px; 
     background: #f1f5f9; border-radius: 50%; box-shadow: 0 0 25px #f1f5f9; z-index: 1;
@@ -33,24 +30,45 @@ body { margin: 0; height: 100vh; display: flex; justify-content: center; align-i
 .cursor-glow {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     pointer-events: none; z-index: 2;
-    background: radial-gradient(circle 180px at var(--x) var(--y), rgba(255, 77, 109, 0.1) 0%, transparent 100%);
+    background: radial-gradient(circle 180px at var(--x) var(--y), rgba(255, 77, 109, 0.15) 0%, transparent 100%);
 }
 
 .glass-card {
     backdrop-filter: blur(20px); border-radius: 30px; padding: 35px; text-align: center;
     width: 85%; max-width: 360px; z-index: 10;
-    animation: entrance 1.5s ease-out, heartbeat 5s infinite;
+    animation: entrance 1.5s ease-out;
 }
 
 @keyframes entrance { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
 
 #clock { display: flex; justify-content: space-around; margin: 20px 0; background: rgba(0,0,0,0.05); padding: 15px; border-radius: 20px; }
-.time-segment span { font-size: 26px; font-weight: bold; text-shadow: 0 0 10px rgba(255, 77, 109, 0.2); }
+.time-segment span { font-size: 26px; font-weight: bold; }
 
-button { padding: 12px 28px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; }
-#yesBtn { background: #ff4d6d; color: white; }
-#noBtn { background: #333; color: #999; position: absolute; left: 50%; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+/* BOTONES CORREGIDOS */
+.button-group {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Espacio entre botones */
+    position: relative;
+    min-height: 50px;
+}
+
+button {
+    padding: 12px 35px;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+
+#yesBtn { background: #ff4d6d; color: white; z-index: 11; }
+#noBtn { background: #333; color: #999; z-index: 12; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+
+/* Cuando el botón empieza a escapar */
+#noBtn.escaped { position: fixed; }
 
 .lo-sabia {
     position: fixed; z-index: 100; font-size: 1.2rem; font-weight: 900; color: #ff4d6d;
@@ -61,4 +79,5 @@ button { padding: 12px 28px; border-radius: 50px; border: none; font-weight: bol
 
 .hidden-content { display: none; margin-top: 25px; }
 .final-text { font-size: 18px; line-height: 1.6; font-style: italic; }
-.glow-word { position: absolute; font-size: 2rem; color: rgba(255,255,255,0.03); pointer-events: none; transition: 0.5s; }
+.glow-word { position: absolute; font-size: 2rem; color: rgba(255,255,255,0.04); pointer-events: none; transition: 0.5s; }
+.divider { height: 1px; background: linear-gradient(to right, transparent, #ff4d6d, transparent); margin-bottom: 20px; }
