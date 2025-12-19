@@ -1,13 +1,17 @@
-// Seleccionamos los elementos
 const button = document.getElementById('magicButton');
 const message = document.getElementById('hiddenMessage');
+const music = document.getElementById('backgroundMusic');
 
-// Agregamos el evento al botón
 button.addEventListener('click', function() {
-    // Mostramos el mensaje secreto
+    // Muestra el mensaje
     message.classList.toggle('hidden');
     
-    // Cambiamos el texto del botón
+    // Intenta reproducir la música
+    music.play().catch(error => {
+        console.log("El navegador bloqueó el inicio automático, pero se activará al interactuar.");
+    });
+
+    // Cambia el texto del botón
     if (message.classList.contains('hidden')) {
         button.textContent = "Haz clic aquí";
     } else {
