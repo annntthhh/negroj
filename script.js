@@ -1,29 +1,12 @@
-const button = document.getElementById('magicButton');
-const message = document.getElementById('hiddenMessage');
-const music = document.getElementById('backgroundMusic');
+const btn = document.getElementById('magicButton');
+const content = document.getElementById('hiddenMessage');
 
-button.addEventListener('click', function() {
-    // 1. Mostrar el mensaje
-    message.style.display = 'block';
+btn.addEventListener('click', () => {
+    // Revelar el mensaje con animación
+    content.style.display = 'block';
     
-    // 2. REINTENTO DE AUDIO FORZADO
-    // Cargamos el archivo de nuevo para asegurar la ruta
-    music.src = "musica.mp3"; 
-    music.load(); 
-    
-    // Reproducimos con una promesa para detectar errores
-    let playPromise = music.play();
-
-    if (playPromise !== undefined) {
-        playPromise.then(_ => {
-            console.log("¡Éxito! La música está sonando.");
-        }).catch(error => {
-            console.log("Error al sonar: " + error);
-            // Si falla, intentamos una vez más sin silencio
-            music.muted = false;
-            music.play();
-        });
-    }
-
-    button.textContent = "¡Te amo mucho! ❤️";
+    // Cambiar el botón para que ya no distraiga
+    btn.style.opacity = '0.5';
+    btn.textContent = "Con amor ❤️";
+    btn.style.pointerEvents = 'none';
 });
