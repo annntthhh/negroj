@@ -102,7 +102,7 @@ document.getElementById('yesBtn').addEventListener('click', () => {
     noBtn.style.display = 'none';
     document.getElementById('secretContent').style.display = 'block';
     
-    const texto = "No miento, es díficil estar contigo pero yo también te amo negro, y demasiado...Siempre más que tú a mí.";
+    const texto = "No voy a mentir, es complicado esto que tenemos. Pero yo también te amo negro, y demasiado...Siempre más que tú a mí.";
     let i = 0;
     const tv = document.getElementById('typewriter');
     function escribir() {
